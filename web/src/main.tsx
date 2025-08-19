@@ -7,7 +7,7 @@ import { client } from './lib/ApolloClient';
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
 
-import "./styles/Global.css";
+import "./styles/global.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
