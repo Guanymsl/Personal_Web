@@ -1,6 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -10,4 +10,4 @@ app.use(cookieParser());
 
 app.get("/healthz", (_req: any, res: any) => res.send("ok"));
 
-export = app;
+export default app;

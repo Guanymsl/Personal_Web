@@ -1,23 +1,31 @@
 import "dotenv/config";
-const http = require("http");
-const app = require("./app");
-import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
-const { typeDefs } = require("./graphql/schema");
-const { resolvers } = require("./graphql/resolvers");
-const { buildContext } = require("./graphql/context");
 
-const server = new ApolloServer({ typeDefs, resolvers });
+import http from "http";
+import express, { Request, Response } from "express";
+import cors from "cors";
+
+import { ApolloServer } from "@apollo/server";
+import resolvers from "./graphql/resolvers";
+import typeDefs from "./graphql/index";
+
+import { expressMiddleware } from "@as-integrations/express4";
 
 async function bootstrap() {
-  await server.start();
-  app.use("/graphql", expressMiddleware(server, {
-    context: async ({ req, res }: any) => buildContext({ req, res }),
-  }));
+  const app = express();
 
-  const port = Number(process.env.PORT || 4000);
+  app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+  app.use(express.json());
+
+  app.get("/healthz", (_req: Request, res: Response) => res.send("ok"));
+
+  const server = new ApolloServer({ typeDefs, resolvers });
+  await server.start();
+
+  app.use("/graphql", expressMiddleware(server));
+
+  const port = process.env.PORT || 4000;
   http.createServer(app).listen(port, () => {
-    console.log(`🚀 API ready at http://localhost:${port}/graphql`);
+    console.log(`API ready at http://localhost:${port}/graphql`);
   });
 }
 
