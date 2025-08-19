@@ -4,4 +4,14 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  /*server: {
+    host: "0.0.0.0",
+    port: 5173,
+    proxy: {
+      "/graphql": {
+        target: process.env.VITE_API_ORIGIN || "http://localhost:4000",
+        changeOrigin: true,
+      },
+    },
+  },*/
 })

@@ -1,18 +1,18 @@
-// import { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
 
-// import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './lib/ApolloClient';
 
-const client = new ApolloClient({
-  uri: 'https://flyby-router-demo.herokuapp.com/',
-  cache: new InMemoryCache(),
-});
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
 
-createRoot(document.getElementById('root')!).render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
-)
+import "./styles/Global.css";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  </StrictMode>
+);
