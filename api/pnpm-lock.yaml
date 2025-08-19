@@ -29,9 +29,6 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
-      express4:
-        specifier: link:@apollo/server/express4
-        version: link:@apollo/server/express4
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
