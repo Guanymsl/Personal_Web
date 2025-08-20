@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Posts from "./pages/Posts";
 import PostDetail from "./pages/PostDetail";
-// import NewPost from "./pages/NewPost";
+import NewPost from "./pages/NewPost";
 import LogIn from "./pages/Login";
 import PostsControl from "./pages/PostsControl";
 
@@ -23,6 +23,14 @@ export const router = createBrowserRouter([
     ],
   },
   { path: "login", element: <LogIn /> },
+  {
+    path: "new",
+    element: (
+      <ProtectedRoute>
+        <NewPost />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: "posts/control",
     element: (

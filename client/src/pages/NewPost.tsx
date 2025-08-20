@@ -3,6 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 
+const GET_POSTS = gql`
+  query GetPosts {
+    posts {
+      id
+      title
+      content
+      position
+    }
+  }
+`;
+
 const CREATE_POST = gql`
   mutation CreatePost($title: String!, $content: String!) {
     createPost(title: $title, content: $content) {
@@ -20,8 +31,9 @@ function NewPost() {
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
     onCompleted: () => {
-      navigate("/posts");
+      navigate("/posts/control");
     },
+    refetchQueries: [{ query: GET_POSTS }],
   });
 
   const onSubmit = async (e: React.FormEvent) => {

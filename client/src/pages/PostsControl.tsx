@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -124,7 +125,33 @@ function PostsControl() {
 
   return (
     <section>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
       <h2>Posts Control</h2>
+      <Link
+        to="/new"
+        style={{
+          textDecoration: "none",
+          padding: "8px 12px",
+          borderRadius: 8,
+          border: "1px solid #ddd",
+          background: "#f7f7f7",
+        }}
+      >
+        + New Post
+      </Link>
+      <Link
+        to="/posts"
+        style={{
+          textDecoration: "none",
+          padding: "8px 12px",
+          borderRadius: 8,
+          border: "1px solid #ddd",
+          background: "#f7f7f7",
+        }}
+      >
+        + Return
+      </Link>
+    </div>
       <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
         <SortableContext
           items={local.map((p) => p.id)}
