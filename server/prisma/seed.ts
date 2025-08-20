@@ -23,6 +23,13 @@ async function main() {
       position: 1,
     },
   });
+  const post3 = await prisma.post.create({
+    data: {
+      title: "Hello World3",
+      content: "This is my first post",
+      position: 2,
+    },
+  });
 }
 
 main()

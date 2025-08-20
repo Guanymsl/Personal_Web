@@ -89,8 +89,8 @@ function PostsControl() {
   const [local, setLocal] = useState<Post[]>([]);
 
   useEffect(() => {
-    if (local.length === 0 && data?.posts) setLocal(data.posts);
-  }, [data, local]);
+    if (data?.posts) setLocal(data.posts);
+  }, [data?.posts]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -112,7 +112,7 @@ function PostsControl() {
     const order = next.map(p => p.id);
 
     try {
-      await reorderPosts({ variables: { order } });
+      await reorderPosts({ variables: { order: order.slice().reverse() } });
     } catch {
       setLocal(local);
     }
