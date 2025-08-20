@@ -8,6 +8,8 @@ import PostDetail from "./pages/PostDetail";
 import NewPost from "./pages/NewPost";
 import LogIn from "./pages/Login";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -17,8 +19,15 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "posts", element: <Posts /> },
       { path: "posts/:id", element: <PostDetail /> },
-      { path: "new", element: <NewPost /> },
-      { path: "login", element: <LogIn /> },
     ],
+  },
+  { path: "login", element: <LogIn /> },
+  {
+    path: "/new",
+    element: (
+      <ProtectedRoute>
+        <NewPost />
+      </ProtectedRoute>
+    ),
   },
 ]);

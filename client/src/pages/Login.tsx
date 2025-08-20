@@ -19,6 +19,7 @@ function LogIn() {
 
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: () => {
+      localStorage.setItem("authToken", "demoToken");
       navigate("/new");
     },
   });

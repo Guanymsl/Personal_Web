@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 
@@ -15,8 +16,13 @@ const CREATE_POST = gql`
 function NewPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
 
-  const [createPost, { loading, error }] = useMutation(CREATE_POST);
+  const [createPost, { loading, error }] = useMutation(CREATE_POST, {
+    onCompleted: () => {
+      navigate("/posts");
+    },
+  });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
