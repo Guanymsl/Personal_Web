@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Posts from "./pages/Posts";
 import PostDetail from "./pages/PostDetail";
-import NewPost from "./pages/NewPost";
+// import NewPost from "./pages/NewPost";
 import LogIn from "./pages/Login";
+import PostsControl from "./pages/PostsControl";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -23,10 +24,10 @@ export const router = createBrowserRouter([
   },
   { path: "login", element: <LogIn /> },
   {
-    path: "/new",
+    path: "posts/control",
     element: (
       <ProtectedRoute>
-        <NewPost />
+        <PostsControl />
       </ProtectedRoute>
     ),
   },

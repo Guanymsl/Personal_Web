@@ -1,4 +1,4 @@
-docker compose up
+docker compose up -d
 pnpm install
 pnpm prisma generate
 pnpm prisma migrate dev

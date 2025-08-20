@@ -4,6 +4,7 @@ interface Post {
   id: number;
   title: string;
   content: string;
+  position: number;
 }
 
 const GET_POSTS = gql`
@@ -12,6 +13,7 @@ const GET_POSTS = gql`
       id
       title
       content
+      position
     }
   }
 `;

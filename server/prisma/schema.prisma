@@ -23,4 +23,5 @@ model Post {
   id       Int    @id @default(autoincrement())
   title    String
   content  String
+  position Int
 }
