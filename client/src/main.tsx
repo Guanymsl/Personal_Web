@@ -1,8 +1,8 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-import { ApolloProvider } from '@apollo/client';
-import { client } from './lib/apolloClient';
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./lib/apolloClient";
 
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";

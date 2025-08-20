@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
-import * as Dnd from "@dnd-kit/core"
+import * as Dnd from "@dnd-kit/core";
 import { DndContext, closestCenter } from "@dnd-kit/core";
-import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 interface Post {
@@ -41,8 +46,15 @@ const REORDER_POSTS = gql`
   }
 `;
 
-function Row({ post, onDelete }: { post: Post; onDelete: (p: Post)=>void }) {
-  const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({ id: post.id });
+function Row({ post, onDelete }: { post: Post; onDelete: (p: Post) => void }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: post.id });
   const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -69,9 +81,15 @@ function Row({ post, onDelete }: { post: Post; onDelete: (p: Post)=>void }) {
       </button>
       <div style={{ flex: 1 }}>
         <div style={{ fontWeight: 600 }}>{post.title}</div>
-        {post.content && <div style={{ color: "#666", fontSize: 14, marginTop: 4 }}>{post.content}</div>}
+        {post.content && (
+          <div style={{ color: "#666", fontSize: 14, marginTop: 4 }}>
+            {post.content}
+          </div>
+        )}
       </div>
-      <button onClick={() => onDelete(post)} style={{ color: "#b00020" }}>Delete</button>
+      <button onClick={() => onDelete(post)} style={{ color: "#b00020" }}>
+        Delete
+      </button>
     </div>
   );
 }
@@ -79,7 +97,7 @@ function Row({ post, onDelete }: { post: Post; onDelete: (p: Post)=>void }) {
 function PostsControl() {
   const { loading, error, data } = useQuery(GET_POSTS);
 
-  const [deletePost]  = useMutation(DELETE_POST, {
+  const [deletePost] = useMutation(DELETE_POST, {
     refetchQueries: [{ query: GET_POSTS }],
   });
 
@@ -110,7 +128,7 @@ function PostsControl() {
 
     setLocal(next);
 
-    const order = next.map(p => p.id);
+    const order = next.map((p) => p.id);
 
     try {
       await reorderPosts({ variables: { order: order.slice().reverse() } });
@@ -125,33 +143,40 @@ function PostsControl() {
 
   return (
     <section>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-      <h2>Posts Control</h2>
-      <Link
-        to="/new"
+      <div
         style={{
-          textDecoration: "none",
-          padding: "8px 12px",
-          borderRadius: 8,
-          border: "1px solid #ddd",
-          background: "#f7f7f7",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 12,
         }}
       >
-        + New Post
-      </Link>
-      <Link
-        to="/posts"
-        style={{
-          textDecoration: "none",
-          padding: "8px 12px",
-          borderRadius: 8,
-          border: "1px solid #ddd",
-          background: "#f7f7f7",
-        }}
-      >
-        + Return
-      </Link>
-    </div>
+        <h2>Posts Control</h2>
+        <Link
+          to="/new"
+          style={{
+            textDecoration: "none",
+            padding: "8px 12px",
+            borderRadius: 8,
+            border: "1px solid #ddd",
+            background: "#f7f7f7",
+          }}
+        >
+          + New Post
+        </Link>
+        <Link
+          to="/posts"
+          style={{
+            textDecoration: "none",
+            padding: "8px 12px",
+            borderRadius: 8,
+            border: "1px solid #ddd",
+            background: "#f7f7f7",
+          }}
+        >
+          + Return
+        </Link>
+      </div>
       <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
         <SortableContext
           items={local.map((p) => p.id)}

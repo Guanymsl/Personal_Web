@@ -9,7 +9,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    logIn: async (_: any, args: { name: string, password: string }) => {
+    logIn: async (_: any, args: { name: string; password: string }) => {
       const user = await prisma.user.findUnique({
         where: { name: args.name, password: args.password },
       });

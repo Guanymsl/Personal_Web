@@ -13,11 +13,12 @@ function Layout({ children }: React.PropsWithChildren) {
 
   return (
     <div className="container">
-      <header><h1>My Web</h1></header>
-      {isAuthed && (<button onClick={handleLogout}>Log Out</button>)}
+      <header>
+        <h1>My Web</h1>
+      </header>
+      {isAuthed && <button onClick={handleLogout}>Log Out</button>}
       <main>{children}</main>
-      <footer style={{ marginTop: 24, opacity: 0.6 }}>
-      </footer>
+      <footer style={{ marginTop: 24, opacity: 0.6 }}></footer>
     </div>
   );
 }

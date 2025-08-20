@@ -47,11 +47,20 @@ function NewPost() {
       <form className="form" onSubmit={onSubmit}>
         <label>
           Title
-          <input value={title} onChange={e => setTitle(e.target.value)} required />
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </label>
         <label>
           Content
-          <textarea value={content} onChange={e => setContent(e.target.value)} rows={6} required />
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={6}
+            required
+          />
         </label>
         <button type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create"}
