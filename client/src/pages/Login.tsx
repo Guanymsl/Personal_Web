@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import { gql, useMutation } from "@apollo/client";
 
@@ -19,10 +19,14 @@ function LogIn() {
 
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     onCompleted: () => {
-      localStorage.setItem("authToken", "demoToken");
-      navigate("/posts/control");
+      sessionStorage.setItem("authToken", "demoToken");
+      navigate("/posts/");
     },
   });
+
+  if (sessionStorage.getItem("authToken")) {
+    return <Navigate to="/posts/" replace />;
+  }
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
