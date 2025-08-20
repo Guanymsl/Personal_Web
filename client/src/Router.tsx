@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Posts from "./pages/Posts";
 import PostDetail from "./pages/PostDetail";
 import NewPost from "./pages/NewPost";
+import LogIn from "./pages/Login";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: "posts", element: <Posts /> },
       { path: "posts/:id", element: <PostDetail /> },
       { path: "new", element: <NewPost /> },
+      { path: "login", element: <LogIn /> },
     ],
   },
 ]);
