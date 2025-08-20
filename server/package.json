@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
     "compile": "tsc",
-    "postcompile": "cp src/graphql/schema.graphql dist/graphql",
-    "start": "pnpm run compile && node ./dist/server.js",
+    "postcompile": "cp src/graphql/schema.graphql dist/src/graphql",
+    "start": "pnpm run compile && node ./dist/src/server.js",
     "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
