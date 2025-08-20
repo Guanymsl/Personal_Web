@@ -20,7 +20,7 @@ async function main() {
     data: {
       title: "Hello World2",
       content: "This is my first post",
-      position: 0,
+      position: 1,
     },
   });
 }

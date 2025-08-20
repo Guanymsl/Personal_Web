@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -82,20 +81,16 @@ function PostsControl() {
   const [deletePost]  = useMutation(DELETE_POST, {
     refetchQueries: [{ query: GET_POSTS }],
   });
-  const [reorderPosts] = useMutation(REORDER_POSTS);
+
+  const [reorderPosts] = useMutation(REORDER_POSTS, {
+    refetchQueries: [{ query: GET_POSTS }],
+  });
 
   const [local, setLocal] = useState<Post[]>([]);
 
-  React.useEffect(() => {
-    if (data?.posts) {
-      setLocal(
-      data.posts.map((p: Post) => ({
-        ...p,
-        id: Number(p.id),
-      }))
-    );
-    }
-  }, [data]);
+  useEffect(() => {
+    if (local.length === 0 && data?.posts) setLocal(data.posts);
+  }, [data, local]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -105,7 +100,6 @@ function PostsControl() {
     const { active, over } = evt;
     if (!over || active.id === over.id) return;
 
-    const prevLocal = local;
     const from = local.findIndex((p) => p.id === active.id);
     const to = local.findIndex((p) => p.id === over.id);
     const next = arrayMove(local, from, to).map((p, i) => ({
@@ -115,34 +109,13 @@ function PostsControl() {
 
     setLocal(next);
 
-    const order = next.map(p => Number(p.id));
+    const order = next.map(p => p.id);
 
-    await reorderPosts({
-      variables: { order },
-      optimisticResponse: {
-        reorderPosts: next.map((p) => ({
-          id: p.id,
-          position: p.position,
-        })),
-      },
-
-      update(cache, { data }) {
-        const updated = data?.reorderPosts;
-        if (!updated) return;
-        updated.forEach((u: Post) => {
-          cache.modify({
-            id: cache.identify({ __typename: 'Post', id: Number(u.id) }),
-            fields: {
-              position() {
-                return u.position;
-              },
-            },
-          });
-        });
-      },
-    }).catch(() => {
-      setLocal(prevLocal);
-    });
+    try {
+      await reorderPosts({ variables: { order } });
+    } catch {
+      setLocal(local);
+    }
   };
 
   const onDelete = async (post: Post) => {
