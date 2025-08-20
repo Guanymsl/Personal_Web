@@ -9,27 +9,6 @@ async function main() {
       password: "chad2005",
     },
   });
-  const post = await prisma.post.create({
-    data: {
-      title: "Hello World",
-      content: "This is my first post",
-      position: 0,
-    },
-  });
-  const post2 = await prisma.post.create({
-    data: {
-      title: "Hello World2",
-      content: "This is my first post",
-      position: 1,
-    },
-  });
-  const post3 = await prisma.post.create({
-    data: {
-      title: "Hello World3",
-      content: "This is my first post",
-      position: 2,
-    },
-  });
 }
 
 main()
